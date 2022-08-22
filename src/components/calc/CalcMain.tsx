@@ -8,8 +8,8 @@ const CalcMain = () => {
 
   return (
     <div id="calc-body">
-      <CalcBottom />
       <CalcTop />
+      <CalcBottom />
     </div>
   )
 }
