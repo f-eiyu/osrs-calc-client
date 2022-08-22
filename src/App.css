@@ -1,3 +1,11 @@
+:root { /* [color-mode="light] */
+  --header-bg: #aaa;
+}
+
+:root[color-mode="dark"] {
+  --header-bg: darkblue;
+}
+
 .App {
   text-align: center;
 }
@@ -13,7 +21,7 @@
   }
 }
 
-.App-header {
+/* #header {
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -22,7 +30,7 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-}
+} */
 
 .App-link {
   color: #61dafb;
@@ -35,4 +43,28 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+
+/* header */
+#header {
+  display: grid;
+  grid-template: 1fr / repeat(3, 1fr);
+
+  height: 5em;
+
+  background-color: var(--header-bg);
+}
+
+#header > div {
+  display: flex;
+  align-items: center;
+
+  font-size: 2em;
+
+  margin: 0;
+}
+
+#header > div#title {
+  justify-content: center;
 }
