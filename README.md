@@ -1,6 +1,8 @@
 # Old School RuneScape Damage Calculator
 A damage calculator for Old School RuneScape (OSRS). There are a handful of existing damage calculators online, but they all suffer from some key UX issue or another (no preset monsters, no user lookup, no way to save loadouts, *being straight up wrong*...), which I do not intend to replicate.
 
+The front end will be built with React, and I would like to use Typescript instead of regular JS.
+
 # Planning
 ## User Stories
 As a user, I would like to:
