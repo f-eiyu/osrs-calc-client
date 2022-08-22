@@ -1,12 +1,16 @@
+import CalcTop from "./CalcTop";
+import CalcBottom from "./CalcBottom";
 
+import "./calc.css";
 
 const CalcMain = () => {
   
 
   return (
-    <>
-      this is my calculator!!!!!!!!!!!!!!!!!
-    </>
+    <div id="calc-body">
+      <CalcBottom />
+      <CalcTop />
+    </div>
   )
 }
 

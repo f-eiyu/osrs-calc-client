@@ -1,0 +1,23 @@
+#calc-body {
+  display: grid;
+  grid-template: 1fr 3fr / 1fr;
+
+  height: 82vh;
+  width: 80vw;
+  margin: 3vh auto 0;
+}
+
+#calc-body > #calc-top {
+  display: grid;
+  grid-template: 1fr / 1fr 2fr 1fr;
+  margin-bottom: 0.5vh;
+}
+
+#calc-body > #calc-bottom {
+  display: grid;
+  grid-template: 1fr / 1fr 1fr;
+}
+
+#calc-body * {
+  border: solid red 1px;
+}
