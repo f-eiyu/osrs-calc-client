@@ -1,7 +1,25 @@
 import GearSlotEntry from "./GearSlotEntry";
 
+const SLOT_NAMES: Array<string> = [
+  "Weapon",
+  "Ammo",
+  "Head",
+  "Cape",
+  "Neck",
+  "Body",
+  "Legs",
+  "Shield",
+  "Hands",
+  "Feet",
+  "Ring"
+];
+
 const GearLoadout = (props: {boxNum: string}) => {
   const boxNum: string = props.boxNum;
+
+  const gearFormEntries = SLOT_NAMES.map((slot, i) => {
+    return <GearSlotEntry key={`slot-${i}`} slot={slot} />
+  });
 
   return (
     <div id="loadout-menu">
@@ -14,17 +32,7 @@ const GearLoadout = (props: {boxNum: string}) => {
       </div>
 
       <form className="loadout-form">
-        <GearSlotEntry slot="Weapon" />
-        <GearSlotEntry slot="Ammo" />
-        <GearSlotEntry slot="Head" />
-        <GearSlotEntry slot="Cape" />
-        <GearSlotEntry slot="Neck" />
-        <GearSlotEntry slot="Body" />
-        <GearSlotEntry slot="Legs" />
-        <GearSlotEntry slot="Shield" />
-        <GearSlotEntry slot="Hands" />
-        <GearSlotEntry slot="Feet" />
-        <GearSlotEntry slot="Ring" />
+        {gearFormEntries}
       </form>
 
 
