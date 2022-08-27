@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 
+import Loading from "./components/shared/Loading";
 import Header from "./components/shared/Header";
 import CalcMain from "./components/calc/CalcMain";
 import Footer from "./components/shared/Footer";
@@ -24,10 +25,9 @@ function App() {
     getNpcDb()
       .then(npcData => setNpcList(npcData.data));
   }, []);
-console.log(itemList);
-  // make this good later
-  if (!itemList || !npcList) { return <>loading a lot of data!</>}
 
+  if (!itemList || !npcList) { return <Loading />}
+  
   return (
     <div className="App">
       <Header />

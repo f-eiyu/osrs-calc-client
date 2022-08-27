@@ -7,12 +7,16 @@ const CalcBottom = (props) => {
     <div id="calc-bottom">
       <GearLoadout
         itemList={props.itemList}
-        boxNum="1"
+        loadout={props.loadoutLeft}
+        setLoadout={props.setLoadout}
+        boxNum={1}
       />
 
       <GearLoadout
         itemList={props.itemList}
-        boxNum="2"
+        loadout={props.loadoutRight}
+        setLoadout={props.setLoadout}
+        boxNum={2}
       />
     </div>
   )

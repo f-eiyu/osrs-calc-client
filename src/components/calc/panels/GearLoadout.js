@@ -1,4 +1,6 @@
 import GearSlotEntry from "./GearSlotEntry";
+import GearStyleSelect from "./GearStyleSelect";
+import LoadoutTotal from "./LoadoutTotal";
 
 // should be the same entries  as Object.keys(itemList), but ordered in a
 // sensible way for the UI
@@ -17,17 +19,33 @@ const SLOT_NAMES = [
 ];
 
 const GearLoadout = (props) => {
-  const { itemList, boxNum } = props;
+  const { itemList, loadout, setLoadout, boxNum } = props;
 
-  const gearFormEntries = SLOT_NAMES.map((slot, i) => {
+  const loadoutEntries = SLOT_NAMES.map((slot, i) => {
     return (
       <GearSlotEntry
         key={`slot-${boxNum}-${i}`}
+        boxNum={boxNum}
         slot={slot}
         items={itemList[slot]}
+        loadout={loadout}
+        setLoadout={setLoadout}
       />
     );
   });
+
+  // for UI purposes, it makes the most sense if the weapon style is directly
+  // under the weapon, which unfortunately necessitates a tiny bit of special
+  // casing here
+  const gearStyleComponent = (
+    <GearStyleSelect
+      key={`style-${boxNum}`}
+      boxNum={boxNum}
+      items={itemList.weapon}
+      loadout={loadout}
+    />
+  );
+  loadoutEntries.splice(1, 0, gearStyleComponent);
 
   return (
     <div id="loadout-menu">
@@ -39,13 +57,16 @@ const GearLoadout = (props) => {
         <span className="loadout-name">Strength</span>
       </div>
 
-      <form className="loadout-form">
-        {gearFormEntries}
-      </form>
+      <div className="loadout-entries-area">
+        {loadoutEntries}
+      </div>
 
-
+      <LoadoutTotal
+        itemList={itemList}
+        loadout={loadout}
+      />
     </div>
-  )
+  );
 }
 
 export default GearLoadout;

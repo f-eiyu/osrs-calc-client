@@ -43,6 +43,6 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 /* debug */
-#calc-body * {
+/* #calc-body * {
   border: solid green 1px;
-}
+} */
