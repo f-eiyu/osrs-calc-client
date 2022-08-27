@@ -1,6 +1,6 @@
 import GearSlotEntry from "./GearSlotEntry";
 
-const SLOT_NAMES: Array<string> = [
+const SLOT_NAMES = [
   "Weapon",
   "Ammo",
   "Head",
@@ -14,11 +14,14 @@ const SLOT_NAMES: Array<string> = [
   "Ring"
 ];
 
-const GearLoadout = (props: {boxNum: string}) => {
-  const boxNum: string = props.boxNum;
-
+const GearLoadout = (props) => {
   const gearFormEntries = SLOT_NAMES.map((slot, i) => {
-    return <GearSlotEntry key={`slot-${i}`} slot={slot} />
+    return (
+      <GearSlotEntry
+        key={`slot-${i}`}
+        slot={slot}
+      />
+    );
   });
 
   return (

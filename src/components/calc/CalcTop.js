@@ -1,6 +1,4 @@
-
-
-const CalcTop = () => {
+const CalcTop = (props) => {
 
 
   return (

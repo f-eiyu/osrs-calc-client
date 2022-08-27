@@ -12,15 +12,27 @@ import { getItemDb, getNpcDb } from "./api/calc";
 function App() {
 
   // data states -- setters should not be called except upon initial load
-  const [itemList, setItemList] = useState([]);
+  const [itemList, setItemList] = useState({});
   const [npcList, setNpcList] = useState([]);
   
   useEffect(() => {
     getItemDb()
-      .then(data => console.log(data.data))
+      .then(itemDataRaw => {
+        // sort the raw data into slots
+        const itemDataSlotSorted = {};
+        for (const item of itemDataRaw.data) {
+          if (itemDataSlotSorted[item.slot]) {
+            itemDataSlotSorted[item.slot].push(item);
+          } else {
+            itemDataSlotSorted[item.slot] = [item];
+          }
+        }
+
+        setItemList(itemDataSlotSorted);
+      });
 
     getNpcDb()
-      .then(data => console.log(data.data))
+      .then(npcData => setNpcList(npcData.data));
   }, []);
 
   return (
@@ -30,7 +42,9 @@ function App() {
       <Routes>
         <Route
           path="/"
-          element={<CalcMain />}
+          element={<CalcMain
+            itemList={itemList} npcList={npcList}
+          />}
         />
 
         

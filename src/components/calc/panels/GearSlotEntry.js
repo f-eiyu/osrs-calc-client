@@ -1,7 +1,7 @@
 
 
-const GearSlotEntry = (props: {slot: string}) => {
-  const slot: string = props.slot;
+const GearSlotEntry = (props) => {
+  const slot = props.slot;
   
 
   return (

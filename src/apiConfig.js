@@ -1,4 +1,4 @@
-let apiUrl: string;
+let apiUrl;
 const apiUrls = {
     // change for deployment
 	production: '<replace_with_deployed_api_url>',
