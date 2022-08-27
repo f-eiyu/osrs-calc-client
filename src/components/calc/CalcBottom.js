@@ -7,11 +7,12 @@ const CalcBottom = (props) => {
     <div id="calc-bottom">
       <GearLoadout
         itemList={props.itemList}
-        npcList={props.npcList}
+        boxNum="1"
       />
+
       <GearLoadout
         itemList={props.itemList}
-        npcList={props.npcList}
+        boxNum="2"
       />
     </div>
   )

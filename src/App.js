@@ -11,29 +11,22 @@ import { getItemDb, getNpcDb } from "./api/calc";
 
 function App() {
 
-  // data states -- setters should not be called except upon initial load
-  const [itemList, setItemList] = useState({});
-  const [npcList, setNpcList] = useState([]);
+  // data states -- setters should never be called except upon initial load
+  const [itemList, setItemList] = useState(null);
+  const [npcList, setNpcList] = useState(null);
   
   useEffect(() => {
+    // fill itemList locally using the item db
     getItemDb()
-      .then(itemDataRaw => {
-        // sort the raw data into slots
-        const itemDataSlotSorted = {};
-        for (const item of itemDataRaw.data) {
-          if (itemDataSlotSorted[item.slot]) {
-            itemDataSlotSorted[item.slot].push(item);
-          } else {
-            itemDataSlotSorted[item.slot] = [item];
-          }
-        }
+      .then(itemData => {setItemList(itemData.data)});
 
-        setItemList(itemDataSlotSorted);
-      });
-
+    // fill npcList locally using the npc db
     getNpcDb()
       .then(npcData => setNpcList(npcData.data));
   }, []);
+console.log(itemList);
+  // make this good later
+  if (!itemList || !npcList) { return <>loading a lot of data!</>}
 
   return (
     <div className="App">

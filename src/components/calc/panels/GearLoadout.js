@@ -1,25 +1,30 @@
 import GearSlotEntry from "./GearSlotEntry";
 
+// should be the same entries  as Object.keys(itemList), but ordered in a
+// sensible way for the UI
 const SLOT_NAMES = [
-  "Weapon",
-  "Ammo",
-  "Head",
-  "Cape",
-  "Neck",
-  "Body",
-  "Legs",
-  "Shield",
-  "Hands",
-  "Feet",
-  "Ring"
+  "weapon",
+  "ammo",
+  "head",
+  "neck",
+  "cape",
+  "body",
+  "hands",
+  "shield",
+  "ring",
+  "legs",
+  "feet",
 ];
 
 const GearLoadout = (props) => {
+  const { itemList, boxNum } = props;
+
   const gearFormEntries = SLOT_NAMES.map((slot, i) => {
     return (
       <GearSlotEntry
-        key={`slot-${i}`}
+        key={`slot-${boxNum}-${i}`}
         slot={slot}
+        items={itemList[slot]}
       />
     );
   });

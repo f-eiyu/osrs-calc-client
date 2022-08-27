@@ -30,6 +30,7 @@ div.loadout-row {
 
 .loadout-name {
   font-weight: bold;
+  text-transform: capitalize;
 }
 
 input.atk-bonus-field, input.str-bonus-field {
