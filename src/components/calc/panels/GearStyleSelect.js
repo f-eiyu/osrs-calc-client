@@ -1,27 +1,95 @@
+import { useState, useEffect } from "react";
+
+import capitalize from "../utils/capitalize";
+import recalculateAtk from "../utils/recalculateAtk";
+import recalculateStr from "../utils/recalculateStr";
+
 const GearStyleSelect = (props) => {
-  const { boxNum, items, loadout } = props;
-  const currentWeapon = items[loadout.weapon];
+  const { boxNum, itemList, loadout, setLoadout } = props;
+  const { attackList, setAttackList, strengthList, setStrengthList } = props;
+  const { resetSelection, setResetSelection } = props;
+  const { disableShield } = props;
+
+  const [ styleSelection, setStyleSelection ] = useState("crush-0");
+
+  const currentWeapon = itemList.weapon[loadout.weapon];
   const styleList = currentWeapon.weapon.stances;
 
   const styleListOptions = styleList.map((style, i) => {
-    const styleString = `${style.combat_style} (${style.attack_style} ${style.attack_type})`;
+    let styleString;
+    if (style.attack_style && style.attack_type) {
+      styleString = `${capitalize(style.combat_style)} (${style.attack_style} ${style.attack_type})`;
+    } else {
+      styleString = capitalize(style.combat_style);
+    }
+
+    let attackType = "crush";
+    if (style.experience.includes("ranged")) { attackType = "ranged"; }
+    else if (style.experience.includes("magic")) { attackType = "magic"; }
+    else if (style.attack_type) { attackType = style.attack_type; }
 
     return (
       <option
-        key={`style-selelct-${boxNum}-${i}`}
-        value={style.attack_type}
+        key={`style-select-${boxNum}-${i}`}
+        value={`${attackType}-${i}`}
       >
         {styleString}
       </option>
     );
-  })
+  });
+
+  // reset the selected menu entry to the first one if a new weapon was selected
+  useEffect(() => {
+    if (resetSelection) {
+      const style = styleList[0];
+      let attackType = "crush";
+      
+      if (style.experience.includes("ranged")) { attackType = "ranged"; }
+      else if (style.experience.includes("magic")) { attackType = "magic"; }
+      else if (style.attack_type) { attackType = style.attack_type; }
+
+      setStyleSelection(`${attackType}-${0}`)
+      setResetSelection(false);
+    }
+  // eslint-disable-next-line
+  }, [loadout]);
+
+  const handleChange = (event) => {
+    const newStyleValue = event.target.value;
+    const newStyle = newStyleValue.split("-")[0];
+
+    // set the menu entry to the selected style
+    setStyleSelection(newStyleValue);
+
+    // change the selected style
+    const newLoadout = { ...loadout };
+    newLoadout.style = newStyle;
+    setLoadout(boxNum, newLoadout);
+
+    // recalculate attack bonuses for the specified style
+    const newAtk = { ...attackList };
+    for (const atkSlot of Object.keys(attackList)) {
+      const atkItem = itemList[atkSlot][newLoadout[atkSlot]];
+      newAtk[atkSlot] = recalculateAtk(atkItem, newStyle, disableShield);
+    }
+    setAttackList(newAtk);
+
+    // recalculate strength bonuses for the specified style
+    const newStr = { ...strengthList };
+    for (const strSlot of Object.keys(strengthList)) {
+      const strItem = itemList[strSlot][newLoadout[strSlot]];
+      newStr[strSlot] = recalculateStr(strItem, newStyle, disableShield);
+    }
+    setStrengthList(newStr);
+  }
 
   return (
     <div className="loadout-row">
       <span className="loadout-name">Style</span>
       <select
+        value={styleSelection}
         style={{width: "14.6em", margin: "0 auto"}}
-        disabled={!styleListOptions.length}
+        onChange={handleChange}
       >
         {styleListOptions}
       </select>

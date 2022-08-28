@@ -1,9 +1,9 @@
 
 const LoadoutTotal = (props) => {
-  const { itemList, loadout } = props;
+  const { attackList, strengthList } = props;
 
-  const totalAtk = "test atk";
-  const totalStr = "test str";
+  const totalAtk = Object.values(attackList).reduce((sum, n) => sum + n, 0);
+  const totalStr = Object.values(strengthList).reduce((sum, n) => sum + n, 0);
 
   return (
     <div className="loadout-row">

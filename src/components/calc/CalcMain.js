@@ -8,7 +8,7 @@ import "./calc.css";
 const CalcMain = (props) => {
   const slotNames = Object.keys(props.itemList);
   const defaultSlots = {};
-  defaultSlots.style = "";
+  defaultSlots.style = "crush";
   slotNames.forEach(slot => defaultSlots[slot] = "None");
 
   const [loadoutLeft, setLoadoutLeft] = useState({ ...defaultSlots });

@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import GearSlotEntry from "./GearSlotEntry";
 import GearStyleSelect from "./GearStyleSelect";
 import LoadoutTotal from "./LoadoutTotal";
@@ -20,6 +22,16 @@ const SLOT_NAMES = [
 
 const GearLoadout = (props) => {
   const { itemList, loadout, setLoadout, boxNum } = props;
+  const [attackList, setAttackList] = useState(SLOT_NAMES.reduce((atk, slot) => {
+    atk[slot] = 0;
+    return atk;
+  }, {}));
+  const [strengthList, setStrengthList] = useState(SLOT_NAMES.reduce((str, slot) => {
+    str[slot] = 0;
+    return str;
+  }, {}));
+  const [resetSelection, setResetSelection] = useState(false);
+  const [disableShield, setDisableShield] = useState(false);
 
   const loadoutEntries = SLOT_NAMES.map((slot, i) => {
     return (
@@ -27,9 +39,18 @@ const GearLoadout = (props) => {
         key={`slot-${boxNum}-${i}`}
         boxNum={boxNum}
         slot={slot}
-        items={itemList[slot]}
+        slotItems={itemList[slot]}
+        allItems={itemList}
         loadout={loadout}
         setLoadout={setLoadout}
+        attackList={attackList}
+        setAttackList={setAttackList}
+        strengthList={strengthList}
+        setStrengthList={setStrengthList}
+        resetSelection={resetSelection}
+        setResetSelection={setResetSelection}
+        disableShield={disableShield}
+        setDisableShield={setDisableShield}
       />
     );
   });
@@ -41,8 +62,16 @@ const GearLoadout = (props) => {
     <GearStyleSelect
       key={`style-${boxNum}`}
       boxNum={boxNum}
-      items={itemList.weapon}
+      itemList={itemList}
       loadout={loadout}
+      setLoadout={setLoadout}
+      attackList={attackList}
+      setAttackList={setAttackList}
+      strengthList={strengthList}
+      setStrengthList={setStrengthList}
+      resetSelection={resetSelection}
+      setResetSelection={setResetSelection}
+      disableShield={disableShield}
     />
   );
   loadoutEntries.splice(1, 0, gearStyleComponent);
@@ -62,8 +91,8 @@ const GearLoadout = (props) => {
       </div>
 
       <LoadoutTotal
-        itemList={itemList}
-        loadout={loadout}
+        attackList={attackList}
+        strengthList={strengthList}
       />
     </div>
   );
