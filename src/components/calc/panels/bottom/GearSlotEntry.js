@@ -3,8 +3,8 @@ import { useState } from 'react';
 import TextField from 'react-autocomplete-input';
 import 'react-autocomplete-input/dist/bundle.css';
 
-import recalculateAtk from '../utils/recalculateAtk';
-import recalculateStr from '../utils/recalculateStr';
+import recalculateAtk from '../../utils/recalculateAtk';
+import recalculateStr from '../../utils/recalculateStr';
 
 const GearSlotEntry = (props) => {
   const { slot, boxNum, slotItems, allItems, loadout, setLoadout } = props;

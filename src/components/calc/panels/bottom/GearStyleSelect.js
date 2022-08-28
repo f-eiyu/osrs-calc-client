@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 
-import capitalize from "../utils/capitalize";
-import recalculateAtk from "../utils/recalculateAtk";
-import recalculateStr from "../utils/recalculateStr";
+import capitalize from "../../utils/capitalize";
+import recalculateAtk from "../../utils/recalculateAtk";
+import recalculateStr from "../../utils/recalculateStr";
 
 const GearStyleSelect = (props) => {
   const { boxNum, itemList, loadout, setLoadout } = props;

@@ -1,4 +1,4 @@
-import GearLoadout from "./panels/GearLoadout";
+import GearLoadout from "./panels/bottom/GearLoadout";
 
 const CalcBottom = (props) => {
 
