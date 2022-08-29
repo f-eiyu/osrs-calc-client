@@ -1,19 +1,22 @@
 import { Link } from "react-router-dom";
 
+const linkStyle = {
+};
+
 const titleDiv = (
   <div id="title">
-    <Link to="/">OSRS DPS Calculator</Link>
+    <Link to="/" style={linkStyle}>OSRS DPS Calculator</Link>
   </div>
 );
 
 const authenticatedOptions = (
   <div id="header">
     <div>
-      <Link to="/settings">Settings</Link>
+      <Link to="/settings" style={linkStyle}>Account</Link>
     </div>
     {titleDiv}
     <div>
-      <Link to="/sign-out">Sign Out</Link>
+      <Link to="/sign-out" style={linkStyle}>Sign Out</Link>
     </div>
   </div>
 );
@@ -21,11 +24,11 @@ const authenticatedOptions = (
 const unauthenticatedOptions = (
   <div id="header">
     <div>
-      <Link to="/sign-up">Sign Up</Link>
+      <Link to="/sign-up" style={linkStyle}>Sign Up</Link>
     </div>
     {titleDiv}
     <div>
-      <Link to="/sign-in">Sign In</Link>
+      <Link to="/sign-in" style={linkStyle}>Sign In</Link>
     </div>
   </div>
 );

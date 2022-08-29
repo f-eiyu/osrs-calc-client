@@ -6,10 +6,11 @@ import Header from "./components/shared/Header";
 import CalcMain from "./components/calc/CalcMain";
 import Footer from "./components/shared/Footer";
 
+import RequireAuth from "./components/shared/RequireAuth";
 import SignIn from "./components/auth/SignIn";
 import SignOut from "./components/auth/SignOut";
 import SignUp from "./components/auth/SignUp";
-import Settings from "./components/user/Settings"
+import Settings from "./components/user/Settings";
 
 import './App.css';
 
@@ -19,6 +20,9 @@ function App() {
   // data states -- setters should never be called except upon initial load
   const [itemList, setItemList] = useState(null);
   const [npcList, setNpcList] = useState(null);
+  const [user, setUser] = useState(null);
+
+  const clearUser = () => { setUser(null); }
   
   useEffect(() => {
     // fill itemList locally using the item db
@@ -34,7 +38,9 @@ function App() {
   
   return (
     <div className="App">
-      <Header />
+      <Header
+        user={user}
+      />
 
       <Routes>
         <Route
@@ -45,21 +51,32 @@ function App() {
         />
 
         <Route
+          path="/sign-up"
+          element={<SignUp setUser={setUser} />}
+        />
+        <Route
           path="/sign-in"
-          element={<SignIn />}
+          element={<SignIn setUser={setUser} />}
         />
         <Route
           path="/sign-out"
-          element={<SignOut />}
-        />
-        <Route
-          path="/sign-up"
-          element={<SignUp />}
+          element={
+            <RequireAuth user={user}>
+              <SignOut
+                user={user}
+                clearUser={clearUser}
+              />
+            </RequireAuth>
+          }
         />
 
         <Route
           path="/settings"
-          element={<Settings />}
+          element={
+            <RequireAuth user={user}>
+              <Settings />
+            </RequireAuth>
+          }
         />
       </Routes>
 
