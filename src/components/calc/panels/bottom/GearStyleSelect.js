@@ -10,7 +10,7 @@ const GearStyleSelect = (props) => {
   const { resetSelection, setResetSelection } = props;
   const { disableShield } = props;
 
-  const [ styleSelection, setStyleSelection ] = useState("crush-0");
+  const [ styleSelection, setStyleSelection ] = useState("crush-accurate-0");
 
   const currentWeapon = itemList.weapon[loadout.weapon];
   const styleList = currentWeapon.weapon.stances;
@@ -31,7 +31,7 @@ const GearStyleSelect = (props) => {
     return (
       <option
         key={`style-select-${boxNum}-${i}`}
-        value={`${attackType}-${i}`}
+        value={`${attackType}-${style.attack_style}-${i}`}
       >
         {styleString}
       </option>
@@ -43,27 +43,30 @@ const GearStyleSelect = (props) => {
     if (resetSelection) {
       const style = styleList[0];
       let attackType = "crush";
+      const attackStyleType = style.attack_style;
       
       if (style.experience.includes("ranged")) { attackType = "ranged"; }
       else if (style.experience.includes("magic")) { attackType = "magic"; }
       else if (style.attack_type) { attackType = style.attack_type; }
 
-      setStyleSelection(`${attackType}-${0}`)
+      setStyleSelection(`${attackType}-${attackStyleType}-${0}`)
       setResetSelection(false);
     }
   // eslint-disable-next-line
   }, [loadout]);
 
   const handleChange = (event) => {
-    const newStyleValue = event.target.value;
-    const newStyle = newStyleValue.split("-")[0];
+    const newStyleValue = event.target.value.split("-");
+    const newStyle = newStyleValue[0];
+    const newStyleType = newStyleValue[1];
 
     // set the menu entry to the selected style
-    setStyleSelection(newStyleValue);
+    setStyleSelection(event.target.value);
 
     // change the selected style
     const newLoadout = { ...loadout };
     newLoadout.style = newStyle;
+    newLoadout.styleType = newStyleType;
     setLoadout(boxNum, newLoadout);
 
     // recalculate attack bonuses for the specified style

@@ -1,7 +1,12 @@
 
 
 const Settings = (props) => {
-  return (<>settings</>);
+  return (
+    <div>
+      <h1>Account Options</h1>
+      
+    </div>
+  );
 }
 
 export default Settings;

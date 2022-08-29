@@ -5,6 +5,7 @@ import roundHundredth from "../../utils/roundHundredth";
 
 const getAccuracy = (player, npc, loadout, loadoutAtk) => {
   const weaponStyle = loadout.style;
+  const weaponStyleType = loadout.styleType;
   let offensiveStat = 0;
   let finalAccuracy = 0;
 
@@ -15,7 +16,9 @@ const getAccuracy = (player, npc, loadout, loadoutAtk) => {
     // calculate effective attack
     offensiveStat = evaluateEffStat("attack", player.attack, player.boosts, player.prayers);
 
-    // TODO: account for weapon style
+    // account for attack type
+    if (weaponStyleType === "accurate") { offensiveStat += 3; }
+    else if (weaponStyleType === "controlled") { offensiveStat += 1; }
     
     // finish effective attack formula
     offensiveStat += 8;
@@ -57,6 +60,7 @@ const getAccuracy = (player, npc, loadout, loadoutAtk) => {
 
 const getMaxHit = (player, npc, loadout, loadoutStr) => {
   const weaponStyle = loadout.style;
+  const weaponStyleType = loadout.styleType;
   let offensiveStat = 0;
   let finalMaxHit = 0;
 
@@ -68,6 +72,8 @@ const getMaxHit = (player, npc, loadout, loadoutStr) => {
     offensiveStat = evaluateEffStat("strength", player.strength, player.boosts, player.prayers);
 
     // TODO: account for weapon style
+    if (weaponStyleType === "aggressive") { offensiveStat += 3; }
+    else if (weaponStyleType === "controlled") { offensiveStat += 1; }
 
     // finish effective strength formula
     offensiveStat += 8;

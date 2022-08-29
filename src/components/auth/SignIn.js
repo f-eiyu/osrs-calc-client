@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 import { signIn } from "../../api/auth";
 
@@ -70,6 +70,12 @@ const SignIn = (props) => {
           disabled={formDisabled}
         />
       </form>
+      
+      <p>
+        <small>
+          Not signed up? <Link to="/sign-up">Create an account</Link>!
+        </small>
+      </p>
     </div>
   );
 }
