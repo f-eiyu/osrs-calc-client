@@ -1,4 +1,4 @@
-const evaluateEffStat = (stat, baseAmount, boosts, prayers) => {
+const evaluateEffStat = (stat, baseAmount, boosts, prayers, rigourStrength = false) => {
   // floor at 1, cap at 9
   let effectiveStat = Math.max(Math.min(baseAmount, 99), 1)
 
@@ -65,8 +65,9 @@ const evaluateEffStat = (stat, baseAmount, boosts, prayers) => {
   if (currentPrayer !== "None") {
     const prayerBonusStr = currentPrayer.split(" ").slice(-1)[0];
     const prayerBonusPercent = parseInt(prayerBonusStr.slice(1, -1));
+    const rigourStrBonus = (rigourStrength && currentPrayer === "Rigour (20%)" ? 3 : 0);
 
-    prayerBonus = boostPercentage(prayerBonusPercent);
+    prayerBonus = boostPercentage(prayerBonusPercent + rigourStrBonus);
   }
   effectiveStat += prayerBonus;
   

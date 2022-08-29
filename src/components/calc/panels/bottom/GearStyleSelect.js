@@ -31,7 +31,7 @@ const GearStyleSelect = (props) => {
     return (
       <option
         key={`style-select-${boxNum}-${i}`}
-        value={`${attackType}-${style.attack_style}-${i}`}
+        value={`${attackType}-${style.attack_style || style.combat_style}-${i}`}
       >
         {styleString}
       </option>

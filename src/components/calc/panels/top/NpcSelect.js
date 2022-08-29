@@ -23,7 +23,6 @@ const NpcSelect = (props) => {
   const handleChange = (event) => {
     const npcNameRaw = event;
     const npcIndex = npcOptions.indexOf(npcNameRaw);
-    console.log(npcNameRaw, npcIndex)
 
     if (npcIndex !== -1) { setCurrentNpcIndex(npcIndex); }
 
@@ -49,7 +48,8 @@ const NpcSelect = (props) => {
         placeholder="Enter a monster's name..."
       />
       <div>HP: {currentNpc.hitpoints}</div>
-      <div>Defence: {currentNpc.defence_level} </div>
+      <div>Defence: {currentNpc.defence_level}</div>
+      <div>Magic: {currentNpc.magic_level}</div>
       <div>Defence bonuses:
         <ul style={{listStyleType: "none", margin: 0, padding: 0}}>
           <li>Slash: {currentNpc.defence_slash}</li>

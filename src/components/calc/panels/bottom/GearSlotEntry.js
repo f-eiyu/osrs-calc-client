@@ -50,7 +50,7 @@ const GearSlotEntry = (props) => {
         else if (style.experience.includes("magic")) { attackType = "magic"; }
         else if (style.attack_type) { attackType = style.attack_type; }
         newLoadout.style = attackType;
-        newLoadout.styleType = style.attack_style;
+        newLoadout.styleType = style.attack_style || style.combat_style;
 
         // if the new weapon is two-handed, disable the shield slot
         let currentDisableShield;
