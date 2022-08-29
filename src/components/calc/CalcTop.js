@@ -1,14 +1,39 @@
 import { useState, useEffect } from "react";
 
+import PlayerSelect from "./panels/top/PlayerSelect";
+import Results from "./panels/top/Results";
 import NpcSelect from "./panels/top/NpcSelect";
 
+const defaultPlayer = {
+  name: "",
+  attack: 99,
+  strength: 99,
+  defence: 99,
+  ranged: 99,
+  magic: 99,
+  hitpoints: 99,
+  prayer: 99,
+  mining: 99,
+  boosts: {
+    attack: "None",
+    strength: "None",
+    ranged: "None",
+    magic: "None"
+  },
+  prayers: {
+    attack: "None",
+    strength: "None",
+    ranged: "None",
+    magic: "None"
+  }
+}
+
 const CalcTop = (props) => {
-  const { npcList } = props;
+  const { itemList, npcList, loadoutLeft, loadoutRight } = props;
 
   const [currentNpcIndex, setCurrentNpcIndex] = useState(0);
   const [currentNpc, setCurrentNpc] = useState(null);
-
-  console.log(npcList);
+  const [currentPlayer, setCurrentPlayer] = useState(defaultPlayer);
 
   // set the default monster to be a cow
   useEffect(() => {
@@ -27,8 +52,19 @@ const CalcTop = (props) => {
 
   return (
     <div id="calc-top">
-      <div>player stats</div>
-      <div>results!</div>
+      <PlayerSelect
+        currentPlayer={currentPlayer}
+        setCurrentPlayer={setCurrentPlayer}
+      />
+
+      <Results
+        itemList={itemList}
+        loadoutLeft={loadoutLeft}
+        loadoutRight={loadoutRight}
+        npc={currentNpc}
+        player={currentPlayer}
+      />
+
       <NpcSelect
         npcList={npcList}
         currentNpcIndex={currentNpcIndex}

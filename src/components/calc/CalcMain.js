@@ -28,6 +28,7 @@ const CalcMain = (props) => {
         loadoutLeft={loadoutLeft}
         loadoutRight={loadoutRight}
       />
+      
       <CalcBottom
         itemList={props.itemList}
         loadoutLeft={loadoutLeft}

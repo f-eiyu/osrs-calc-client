@@ -14,3 +14,10 @@ export const getNpcDb = () => {
     method: "GET"
   });
 }
+
+export const getPlayerFromHiscores = (name) => {
+  return axios({
+    url: apiUrl + "/player/" + name,
+    method: "GET"
+  });
+}
