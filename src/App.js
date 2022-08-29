@@ -10,7 +10,10 @@ import RequireAuth from "./components/shared/RequireAuth";
 import SignIn from "./components/auth/SignIn";
 import SignOut from "./components/auth/SignOut";
 import SignUp from "./components/auth/SignUp";
+
 import Settings from "./components/user/Settings";
+import ChangePassword from "./components/user/ChangePassword";
+import Loadouts from "./components/user/Loadouts";
 
 import './App.css';
 
@@ -74,7 +77,31 @@ function App() {
           path="/settings"
           element={
             <RequireAuth user={user}>
-              <Settings />
+              <Settings
+                user={user}
+                setUser={setUser}
+              />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/change-password"
+          element={
+            <RequireAuth user={user}>
+              <ChangePassword
+                user={user}
+              />
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/loadouts"
+          element={
+            <RequireAuth user={user}>
+              <Loadouts
+                user={user}
+                setUser={setUser}
+              />
             </RequireAuth>
           }
         />
