@@ -6,12 +6,16 @@ import Header from "./components/shared/Header";
 import CalcMain from "./components/calc/CalcMain";
 import Footer from "./components/shared/Footer";
 
+import SignIn from "./components/auth/SignIn";
+import SignOut from "./components/auth/SignOut";
+import SignUp from "./components/auth/SignUp";
+import Settings from "./components/user/Settings"
+
 import './App.css';
 
 import { getItemDb, getNpcDb } from "./api/calc";
 
 function App() {
-
   // data states -- setters should never be called except upon initial load
   const [itemList, setItemList] = useState(null);
   const [npcList, setNpcList] = useState(null);
@@ -40,7 +44,23 @@ function App() {
           />}
         />
 
-        
+        <Route
+          path="/sign-in"
+          element={<SignIn />}
+        />
+        <Route
+          path="/sign-out"
+          element={<SignOut />}
+        />
+        <Route
+          path="/sign-up"
+          element={<SignUp />}
+        />
+
+        <Route
+          path="/settings"
+          element={<Settings />}
+        />
       </Routes>
 
       <Footer />
