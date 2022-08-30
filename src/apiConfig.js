@@ -1,7 +1,6 @@
 let apiUrl;
 const apiUrls = {
-    // change for deployment
-	production: '<replace_with_deployed_api_url>',
+	production: 'https://osrs-calc-server.herokuapp.com',
 	development: 'http://localhost:8000',
 };
 
