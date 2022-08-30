@@ -1,0 +1,38 @@
+/* general */
+div.main-container {
+  width: 50%;
+  margin: 0 auto;
+
+  padding-bottom: 4vh;
+
+  border: solid red 1px;
+}
+
+/* loadouts */
+div.loadout-title-bar {
+  display: grid;
+  grid-template: 1fr / 6fr 1fr;
+}
+
+h2.loadout-name {
+  margin: 0.3em;
+  padding: 0;
+}
+
+div.loadout-slot-name {
+  font-weight: bold;
+  text-transform: capitalize;
+}
+
+div.loadout-contents {
+  margin: 0 auto;
+  width: 25em;
+  border: solid green 1px;
+  text-align: left;
+}
+
+div.loadout-content-row {
+  display: grid;
+  grid-template: 1fr / 1fr 4fr;
+  margin: 2px;
+}

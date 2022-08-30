@@ -8,33 +8,20 @@ import SaveLoadout from "./SaveLoadout";
 
 import { addLoadout } from "../../../../api/user";
 import getDefaultLoadout from "../../utils/getDefaultLoadout";
+import slotNames from "../../utils/slotNames";
 
-// should be the same entries  as Object.keys(itemList), but ordered in a
-// sensible way for the UI
-const SLOT_NAMES = [
-  "weapon",
-  "ammo",
-  "head",
-  "neck",
-  "cape",
-  "body",
-  "hands",
-  "shield",
-  "ring",
-  "legs",
-  "feet",
-];
+
 
 const GearLoadout = (props) => {
   const { itemList, loadout, setLoadout, boxNum } = props;
   const { user, setUser } = props;
   const { transferLoadout } = props;
 
-  const [attackList, setAttackList] = useState(SLOT_NAMES.reduce((atk, slot) => {
+  const [attackList, setAttackList] = useState(slotNames.reduce((atk, slot) => {
     atk[slot] = 0;
     return atk;
   }, {}));
-  const [strengthList, setStrengthList] = useState(SLOT_NAMES.reduce((str, slot) => {
+  const [strengthList, setStrengthList] = useState(slotNames.reduce((str, slot) => {
     str[slot] = 0;
     return str;
   }, {}));
@@ -53,7 +40,6 @@ const GearLoadout = (props) => {
     if (!loadoutName) { return; }
     
     const userLoadouts = user.loadouts;
-    console.log(Object.keys(userLoadouts), loadoutName)
     if (Object.keys(userLoadouts).includes(loadoutName)) {
       const overwriteLoadout = window.confirm(`There is an existing loadout named "${loadoutName}". Overwrite?`);
       if (!overwriteLoadout) { return; }
@@ -70,7 +56,7 @@ const GearLoadout = (props) => {
       .catch(() => alert("Server error while saving loadout."));
   }
 
-  const loadoutEntries = SLOT_NAMES.map((slot, i) => {
+  const loadoutEntries = slotNames.map((slot, i) => {
     return (
       <GearSlotEntry
         key={`slot-${boxNum}-${i}`}

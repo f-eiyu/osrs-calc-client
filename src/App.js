@@ -102,6 +102,7 @@ function App() {
           element={
             <RequireAuth user={user}>
               <Loadouts
+                itemList={itemList}
                 user={user}
                 setUser={setUser}
               />

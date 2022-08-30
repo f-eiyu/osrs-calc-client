@@ -17,6 +17,16 @@ export const changePassword = (user, passwords) => {
   });
 }
 
+export const getLoadouts = (user) => {
+	return axios({
+		url: apiUrl + "/get-loadouts",
+		method: "GET",
+		headers: {
+			Authorization: `Token token=${user.token}`,
+		}
+	});
+}
+
 export const addLoadout = (user, loadoutEntry) => {
 	return axios({
 		url: apiUrl + "/add-loadout",
@@ -25,5 +35,15 @@ export const addLoadout = (user, loadoutEntry) => {
 			Authorization: `Token token=${user.token}`,
 		},
 		data: { loadoutEntry }
+	});
+}
+
+export const deleteLoadout = (user, loadoutName) => {
+	return axios({
+		url: apiUrl + "/delete-loadout/" + loadoutName,
+		method: "DELETE",
+		headers: {
+			Authorization: `Token token=${user.token}`,
+		}
 	});
 }
