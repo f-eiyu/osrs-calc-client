@@ -38,8 +38,8 @@ const GearStyleSelect = (props) => {
     );
   });
 
-  // reset the selected menu entry to the first one if a new weapon was selected
   useEffect(() => {
+    // reset the selected menu entry if a new weapon was selected
     if (resetSelection) {
       const style = styleList[0];
       let attackType = "crush";
@@ -51,6 +51,19 @@ const GearStyleSelect = (props) => {
 
       setStyleSelection(`${attackType}-${attackStyleType}-${0}`)
       setResetSelection(false);
+    }
+    // otherwise, if the loadout changes for any reason, mirror that change.
+    // because of the (mediocre) way that i coded things earlier, this is
+    // actually a bit messy...
+    else {
+      const selectionPartial = `${loadout.style}-${loadout.styleType}`;
+
+      const newSelect = styleListOptions.map(styleJsx => styleJsx.props.value)
+        .filter(styleStr => {
+          return (styleStr.search(selectionPartial) === 0);
+        }
+      )[0];
+      setStyleSelection(newSelect);
     }
   // eslint-disable-next-line
   }, [loadout]);
@@ -67,7 +80,7 @@ const GearStyleSelect = (props) => {
     const newLoadout = { ...loadout };
     newLoadout.style = newStyle;
     newLoadout.styleType = newStyleType;
-    setLoadout(boxNum, newLoadout);
+    setLoadout(newLoadout);
 
     // recalculate attack bonuses for the specified style
     const newAtk = { ...attackList };

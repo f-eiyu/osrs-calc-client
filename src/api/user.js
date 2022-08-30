@@ -16,3 +16,14 @@ export const changePassword = (user, passwords) => {
 		}
   });
 }
+
+export const addLoadout = (user, loadoutEntry) => {
+	return axios({
+		url: apiUrl + "/add-loadout",
+		method: "POST",
+		headers: {
+			Authorization: `Token token=${user.token}`,
+		},
+		data: { loadoutEntry }
+	});
+}

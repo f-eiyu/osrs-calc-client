@@ -49,7 +49,10 @@ function App() {
         <Route
           path="/"
           element={<CalcMain
-            itemList={itemList} npcList={npcList}
+            user={user}
+            setUser={setUser}
+            itemList={itemList}
+            npcList={npcList}
           />}
         />
 

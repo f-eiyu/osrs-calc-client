@@ -3,23 +3,17 @@ import { useState } from "react";
 import CalcTop from "./CalcTop";
 import CalcBottom from "./CalcBottom";
 
+import getDefaultLoadout from "./utils/getDefaultLoadout";
+
 import "./calc.css";
 
 const CalcMain = (props) => {
-  const slotNames = Object.keys(props.itemList);
-  const defaultSlots = {};
-  defaultSlots.style = "crush";
-  defaultSlots.styleType = "accurate";
-  slotNames.forEach(slot => defaultSlots[slot] = "None");
+  const { user, setUser } = props;
 
-  const [loadoutLeft, setLoadoutLeft] = useState({ ...defaultSlots });
-  const [loadoutRight, setLoadoutRight] = useState({ ...defaultSlots });
+  const defaultLoadout = getDefaultLoadout(props.itemList);
 
-  // 1 = left, 2 = right
-  const setLoadout = (loadoutNum, loadout) => {
-    if (loadoutNum === 1) { setLoadoutLeft(loadout); }
-    else { setLoadoutRight(loadout); }
-  }
+  const [loadoutLeft, setLoadoutLeft] = useState({ ...defaultLoadout });
+  const [loadoutRight, setLoadoutRight] = useState({ ...defaultLoadout });
 
   return (
     <div id="calc-body">
@@ -34,7 +28,10 @@ const CalcMain = (props) => {
         itemList={props.itemList}
         loadoutLeft={loadoutLeft}
         loadoutRight={loadoutRight}
-        setLoadout={setLoadout}
+        setLoadoutLeft={setLoadoutLeft}
+        setLoadoutRight={setLoadoutRight}
+        user={user}
+        setUser={setUser}
       />
     </div>
   )

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import TextField from 'react-autocomplete-input';
 import 'react-autocomplete-input/dist/bundle.css';
@@ -7,7 +7,7 @@ import recalculateAtk from '../../utils/recalculateAtk';
 import recalculateStr from '../../utils/recalculateStr';
 
 const GearSlotEntry = (props) => {
-  const { slot, boxNum, slotItems, allItems, loadout, setLoadout } = props;
+  const { slot, slotItems, allItems, loadout, setLoadout } = props;
   const { attackList, setAttackList, strengthList, setStrengthList } = props;
   // eslint-disable-next-line
   const { resetSelection, setResetSelection } = props;
@@ -17,9 +17,9 @@ const GearSlotEntry = (props) => {
 
   const itemNames = Object.keys(slotItems);
 
-  // correctly set the attack and strength for the selected weapon style
-  const currentAtk = attackList[slot];
-  const currentStrength = strengthList[slot];
+  // // correctly set the attack and strength for the selected weapon style
+  let currentAtk = attackList[slot];
+  let currentStrength = strengthList[slot];
 
   const handleFocus = (event) => {
     event.target.select();
@@ -58,7 +58,7 @@ const GearSlotEntry = (props) => {
         // otherwise, enable the shield slot
         else { currentDisableShield = false; }
         setDisableShield(currentDisableShield);
-        setLoadout(boxNum, newLoadout);
+        setLoadout(newLoadout);
 
         // generate and save new attack bonuses
         const newAtk = { ...attackList };
@@ -78,7 +78,7 @@ const GearSlotEntry = (props) => {
       }
       // if it's not a weapon, only update the slot's style bonuses
       else {
-        setLoadout(boxNum, newLoadout);
+        setLoadout(newLoadout);
 
         // change attack list state
         const newAtk = { ...attackList };
@@ -92,6 +92,31 @@ const GearSlotEntry = (props) => {
       }
     }
   }
+
+  // properly update UI when a loadout is retrieved/transferred/etc.
+  useEffect(() => {
+    // change text box
+    setCurrentName(loadout[slot]);
+
+    const attackType = loadout.style;
+
+    // generate and save new attack bonuses
+    const newAtk = { ...attackList };
+    for (const atkSlot of Object.keys(attackList)) {
+      const atkItem = allItems[atkSlot][loadout[atkSlot]];
+      newAtk[atkSlot] = recalculateAtk(atkItem, attackType, disableShield);
+    }
+    setAttackList(newAtk);
+
+    // generate and save new strength bonuses
+    const newStr = { ...strengthList };
+    for (const strSlot of Object.keys(strengthList)) {
+      const strItem = allItems[strSlot][loadout[strSlot]];
+      newStr[strSlot] = recalculateStr(strItem, attackType, disableShield);
+    }
+    setStrengthList(newStr);
+  // eslint-disable-next-line
+  }, [loadout]);
 
   return (
     <div className="loadout-row">

@@ -9,7 +9,7 @@ const ResultsDiff = (props) => {
 
     // compare using the left result as a baseline
     let percentChange = roundHundredth(100 * (resultRight - resultLeft) / resultLeft);
-    // unlike all the other stats, higher attack speed is worse
+    // higher attack speed is worse
     if (result === "speed") percentChange *= -1;
 
     return (
